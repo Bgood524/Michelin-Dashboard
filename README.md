@@ -15,3 +15,10 @@ Our original [dataset](https://www.kaggle.com/jackywang529/michelin-restaurants)
 
 ![Restaurant Info to Scrape](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Example_2.png)
 
+*Additional Visualization Example*
+
+![Visualization](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/michelin_bubble.png)
+
+*Airport Directions Example*
+
+![Directions](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/google-api-3.jpg)
