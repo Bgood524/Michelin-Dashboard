@@ -67,6 +67,7 @@ print (mergedOneStar.head(10))
 # Find our 2 nulls in city column
 print (mergedOneStar[mergedOneStar['city'].isna()])
 
+
 # Add our hong kong city 
 mergedOneStar.loc[177, 'city'] = "Hong Kong"
 mergedOneStar.loc[192, 'city'] = "Hong Kong"
@@ -151,7 +152,7 @@ mergedOneStar.to_csv("mergedOneStar_df.csv", index= False)
 mergedTwoStars.to_csv("mergedTwoStars_df.csv", index= False)
 mergedThreeStars.to_csv("mergedThreeStars_df.csv", index = False)
 
-# -------------COMBINE DATA FRAMES------------------
+"""# -------------COMBINE DATA FRAMES------------------
 print ('-------------')
 print ('-------------')
 print ('-------------')
@@ -167,7 +168,7 @@ print (combinedMerge.head())
 #Get combined Merge into Dictionary format 
 combinedMerge_dict = combinedMerge.to_dict('records')
 pp.pprint (combinedMerge_dict)
-
+"""
 
 # Iterate through list to fix column headers 
 star_df = [mergedOneStar, mergedTwoStars, mergedThreeStars]
@@ -176,6 +177,11 @@ star_df = [mergedOneStar, mergedTwoStars, mergedThreeStars]
 for s in star_df:
     s.rename(columns={"Price Range": "price_range", "Restauarant Website": 'restaurant_website'}, inplace= True)
 
+mergedOneStar = mergedOneStar.fillna('N/A')
+mergedTwoStars = mergedTwoStars.fillna('N/A')
+mergedThreeStars = mergedThreeStars.fillna('N/A')
+
+print (mergedOneStar.head(25))
 
 
 mergedOneStar_dict = mergedOneStar.to_dict('records')
@@ -193,7 +199,7 @@ print('---------------------------------------------')
 
 # Create connection to MongoDB
 client = MongoClient('localhost', 27017)
-db = client['michelin']
+db = client['michelinStars']
 collection1 = db['oneStars']
 collection2 = db['twoStars']
 collection3 = db['threeStars']
