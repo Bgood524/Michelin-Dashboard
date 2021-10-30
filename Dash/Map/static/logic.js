@@ -7,7 +7,6 @@
     id: "mapbox/streets-v11",
     accessToken: API_KEY
   });
-console.log(data_collection)
 // var link = "/get_data"
 // // Grabbing our GeoJSON data..
 // d3.json(link).then(function(error, data) {
@@ -17,43 +16,43 @@ console.log(data_collection)
 // });
 
 
-var three_stars = [
-{Restaurant_Name: 'Alinea',
-City: 'Chicago',
-Price_Range: '210 - 365 USD',
-Restauarant_Website: 'https://www.alinearestaurant.com/',
-Latitude: 41.913274,
-Longitude: -87.648174,
-Location: [41.913274, -87.648174]},
-{
-  Restaurant_Name: 'Kashiwaya',
-  City: 'Tokyo',
-  Price_Range: '13,000 - 43,000 JPY',
-  Restauarant_Website: 'https://jp-kashiwaya.com/senriyama/',
-  Latitude: 41.9110,
-  Longitude: -87.6349,
-  Location: [41.9110, -87.6349]
-}
-];
+// DummyData: var three_stars = [
+// {Restaurant_Name: 'Alinea',
+// City: 'Chicago',
+// Price_Range: '210 - 365 USD',
+// Restauarant_Website: 'https://www.alinearestaurant.com/',
+// Latitude: 41.913274,
+// Longitude: -87.648174,
+// Location: [41.913274, -87.648174]},
+// {
+//   Restaurant_Name: 'Kashiwaya',
+//   City: 'Tokyo',
+//   Price_Range: '13,000 - 43,000 JPY',
+//   Restauarant_Website: 'https://jp-kashiwaya.com/senriyama/',
+//   Latitude: 41.9110,
+//   Longitude: -87.6349,
+//   Location: [41.9110, -87.6349]
+// }
+// ];
 
-var two_stars = [
-  {Restaurant_Name: 'Oriole',
-  City: 'Chicago',
-  Price_Range: '215 USD',
-  Restauarant_Website: 'https://www.oriolechicago.com/',
-  Latitude: 41.9761,
-  Longitude: -87.8169,
-  Location: [41.9761, -87.8169]},
-  {
-    Restaurant_Name: 'Smyth',
-    City: 'Chicago',
-    Price_Range: '225 - 280 USD',
-    Restauarant_Website: 'https://www.smythandtheloyalist.com/',
-    Latitude: 41.8850,
-    Longitude: -87.6606,
-    Location: [41.8850, -87.6606]
-  }
-];
+// DummyData: var two_stars = [
+//   {Restaurant_Name: 'Oriole',
+//   City: 'Chicago',
+//   Price_Range: '215 USD',
+//   Restauarant_Website: 'https://www.oriolechicago.com/',
+//   Latitude: 41.9761,
+//   Longitude: -87.8169,
+//   Location: [41.9761, -87.8169]},
+//   {
+//     Restaurant_Name: 'Smyth',
+//     City: 'Chicago',
+//     Price_Range: '225 - 280 USD',
+//     Restauarant_Website: 'https://www.smythandtheloyalist.com/',
+//     Latitude: 41.8850,
+//     Longitude: -87.6606,
+//     Location: [41.8850, -87.6606]
+//   }
+// ];
 
 
 
@@ -61,20 +60,20 @@ var two_stars = [
 var restmarkers_three = [];
 var restmarkers_two = [];
 
-for (var i = 0; i < three_stars.length; i++) {
-  var rest = three_stars[i];
+for (var i = 0; i < data_collection_3.length; i++) {
+  var rest = data_collection_3[i];
   
   restmarkers_three.push(
-     L.marker([rest.Latitude, rest.Longitude])
-    .bindPopup(rest.Restaurant_Name + "<br> " + rest.City+ " " + "<br> Price Range: " + rest.Price_Range + " <br> Restaurant URL: " + rest.Restauarant_Website)
+     L.marker([rest.latitude, rest.longitude])
+    .bindPopup(rest.name + "<br> " + rest.city+ " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
   )};
 
-  for (var i = 0; i < two_stars.length; i++) {
-    var rest_two = two_stars[i];
+  for (var i = 0; i < data_collection_2.length; i++) {
+    var rest_two = data_collection_2[i];
     
     restmarkers_two.push(
-    L.marker([rest_two.Latitude, rest_two.Longitude])
-    .bindPopup(rest_two.Restaurant_Name + "<br> " + rest_two.City+ " " + "<br> Price Range: " + rest_two.Price_Range + " <br> Restaurant URL: " + rest_two.Restauarant_Website)
+    L.marker([rest_two.latitude, rest_two.longitude])
+    .bindPopup(rest_two.name + "<br> " + rest_two.city+ " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
     )};
 
 var cityLayer_three = L.layerGroup(restmarkers_three);
