@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 # Use flask_pymongo to set up mongo connection
-app.config["MONGO_URI"] = "mongodb://localhost:27017/ClassDB"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/michelin"
 mongo = PyMongo(app)
 
 
@@ -15,9 +15,10 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def data_get():
-    data_collection = list(mongo.db.Students.find({}, {'_id': False}))
-    data_collection_2 = list(mongo.db.classroom.find({}, {'_id': False}))
-    return render_template('index.html', data_collection=data_collection, data_collection_2=data_collection_2)
+    data_collection = list(mongo.db.oneStars.find({}, {'_id': False}))
+    data_collection_2 = list(mongo.db.twoStars.find({}, {'_id': False}))
+    data_collection_3 = list(mongo.db.threeStars.find({}, {'_id': False}))
+    return render_template('index.html', data_collection=data_collection, data_collection_2=data_collection_2, data_collection_3=data_collection_3)
 
 # @app.route('/get_data')
 # def getMyJson():
