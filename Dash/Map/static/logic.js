@@ -157,7 +157,7 @@ function makeMap(lat, lon) {
 //   makeMap(lat, lon)
 // }
 
-baseurl = `https://maps.googleapis.com/maps/api/geocode/json?key=${google_api_key}&components=postal_code:`
+
 
 
 var myMap = makeMap(41.913274, -87.648174)
