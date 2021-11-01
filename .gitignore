@@ -1,6 +1,7 @@
 # Adding config.py file.
-config.js
-```
+Dash/Map/static/config.js
+*.csv
+*.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

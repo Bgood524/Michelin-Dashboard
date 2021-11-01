@@ -70,6 +70,15 @@ var greenIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
+var redIcon = new L.Icon({
+	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+});
+
 for (var i = 0; i < data_collection_3.length; i++) {
   var rest = data_collection_3[i];
 
@@ -83,7 +92,7 @@ for (var i = 0; i < data_collection_2.length; i++) {
   var rest_two = data_collection_2[i];
 
   restmarkers_two.push(
-    L.marker([rest_two.latitude, rest_two.longitude])
+    L.marker([rest_two.latitude, rest_two.longitude], {icon: redIcon})
       .bindPopup(rest_two.name + "<br> " + rest_two.city + " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
   )
 };
@@ -135,7 +144,7 @@ function makeMap(lat, lon) {
   var myMap = L.map("map", {
     center: [lat, lon],
     zoom: 12,
-    layers: [outdoors, cityLayer_two, streetmap]
+    layers: [outdoors, cityLayer_two, cityLayer_three, cityLayer, streetmap]
   });
   return myMap
 }
@@ -149,7 +158,7 @@ function makeMap(lat, lon) {
 // }
 
 baseurl = `https://maps.googleapis.com/maps/api/geocode/json?key=${google_api_key}&components=postal_code:`
-console.log(baseurl)
+
 
 var myMap = makeMap(41.913274, -87.648174)
 var legend = L.control({position: 'bottomright'});
@@ -158,11 +167,13 @@ legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
 
-    // loop through our density intervals and generate a label with a colored square for each interval
+    
    
         div.innerHTML +=
             '<i style="background:' + "green" + '"></i> ' + "Three Stars" +
-             '<br>';
+             '<br>' + '<br>' + '<i style="background:' + "red" + '"></i> ' + "Two Stars" +
+             '<br>' + '<br>'+ '<i style="background:' + "blue" + '"></i> ' + "One Star"
+             ;
 
     return div;
 };
