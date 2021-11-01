@@ -84,7 +84,7 @@ for (var i = 0; i < data_collection_3.length; i++) {
 
   restmarkers_three.push(
     L.marker([rest.latitude, rest.longitude], {icon: greenIcon})
-      .bindPopup(rest.name + "<br> " + rest.city + " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
+      .bindPopup("<h1>" + rest.name + "</h1> <br> " + rest.city + " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
   )
 };
 
@@ -93,7 +93,7 @@ for (var i = 0; i < data_collection_2.length; i++) {
 
   restmarkers_two.push(
     L.marker([rest_two.latitude, rest_two.longitude], {icon: redIcon})
-      .bindPopup(rest_two.name + "<br> " + rest_two.city + " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
+      .bindPopup("<h2>" + rest_two.name + "</h2> <br> " + rest_two.city + " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
   )
 };
 
@@ -102,7 +102,7 @@ for (var i = 0; i < data_collection.length; i++) {
 
   restmarkers.push(
     L.marker([rest_one.latitude, rest_one.longitude])
-      .bindPopup(rest_one.name + "<br> " + rest_one.city + " " + "<br> Price Range: " + rest_one.price_range + " <br> Restaurant URL: " + rest_one.restaurant_website)
+      .bindPopup("<h3>" + rest_one.name + "</h3> <br> " + rest_one.city + " " + "<br> Price Range: " + rest_one.price_range + " <br> Restaurant URL: " + rest_one.restaurant_website)
   )
 };
 
