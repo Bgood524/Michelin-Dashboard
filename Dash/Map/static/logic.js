@@ -1,12 +1,12 @@
-  // Adding tile layer
-  var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/streets-v11",
-    accessToken: API_KEY
-  });
+// Adding tile layer
+var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
+});
 // var link = "/get_data"
 // // Grabbing our GeoJSON data..
 // d3.json(link).then(function(error, data) {
@@ -59,25 +59,48 @@
 // An array which will be used to store created restaurant markers
 var restmarkers_three = [];
 var restmarkers_two = [];
+var restmarkers = [];
+
+var greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 for (var i = 0; i < data_collection_3.length; i++) {
   var rest = data_collection_3[i];
-  
-  restmarkers_three.push(
-     L.marker([rest.latitude, rest.longitude])
-    .bindPopup(rest.name + "<br> " + rest.city+ " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
-  )};
 
-  for (var i = 0; i < data_collection_2.length; i++) {
-    var rest_two = data_collection_2[i];
-    
-    restmarkers_two.push(
+  restmarkers_three.push(
+    L.marker([rest.latitude, rest.longitude], {icon: greenIcon})
+      .bindPopup(rest.name + "<br> " + rest.city + " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
+  )
+};
+
+for (var i = 0; i < data_collection_2.length; i++) {
+  var rest_two = data_collection_2[i];
+
+  restmarkers_two.push(
     L.marker([rest_two.latitude, rest_two.longitude])
-    .bindPopup(rest_two.name + "<br> " + rest_two.city+ " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
-    )};
+      .bindPopup(rest_two.name + "<br> " + rest_two.city + " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
+  )
+};
+
+for (var i = 0; i < data_collection.length; i++) {
+  var rest_one = data_collection[i];
+
+  restmarkers.push(
+    L.marker([rest_one.latitude, rest_one.longitude])
+      .bindPopup(rest_one.name + "<br> " + rest_one.city + " " + "<br> Price Range: " + rest_one.price_range + " <br> Restaurant URL: " + rest_one.restaurant_website)
+  )
+};
 
 var cityLayer_three = L.layerGroup(restmarkers_three);
 var cityLayer_two = L.layerGroup(restmarkers_two);
+var cityLayer = L.layerGroup(restmarkers);
+
 
 // Define variables for our tile layers
 var outdoors = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -103,15 +126,48 @@ var baseMaps = {
 // Overlays that may be toggled on or off
 var overlayMaps = {
   Three_Stars: cityLayer_three,
-  Two_Stars : cityLayer_two
+  Two_Stars: cityLayer_two,
+  One_Star: cityLayer
+
 };
 
-var myMap = L.map("map", {
-  center: [41.913274, -87.648174],
-  zoom: 11,
-  layers: [outdoors, cityLayer_two, streetmap]
-});
+function makeMap(lat, lon) {
+  var myMap = L.map("map", {
+    center: [lat, lon],
+    zoom: 12,
+    layers: [outdoors, cityLayer_two, streetmap]
+  });
+  return myMap
+}
 
+// function called runEnter
+
+// function runEnter(){
+//   ... // code to grab form
+//   ... // filter data to get lat lon for restaurant name
+//   makeMap(lat, lon)
+// }
+
+baseurl = `https://maps.googleapis.com/maps/api/geocode/json?key=${google_api_key}&components=postal_code:`
+console.log(baseurl)
+
+var myMap = makeMap(41.913274, -87.648174)
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+   
+        div.innerHTML +=
+            '<i style="background:' + "green" + '"></i> ' + "Three Stars" +
+             '<br>';
+
+    return div;
+};
+
+legend.addTo(myMap);
 
 // Pass our map layers into our layer control
 // Add the layer control to the map
