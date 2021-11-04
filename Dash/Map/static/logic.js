@@ -71,19 +71,19 @@ var greenIcon = new L.Icon({
 });
 
 var redIcon = new L.Icon({
-	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
 });
 
 for (var i = 0; i < data_collection_3.length; i++) {
   var rest = data_collection_3[i];
 
   restmarkers_three.push(
-    L.marker([rest.latitude, rest.longitude], {icon: greenIcon})
+    L.marker([rest.latitude, rest.longitude], { icon: greenIcon })
       .bindPopup("<h1>" + rest.name + "</h1> <br> " + rest.city + " " + "<br> Price Range: " + rest.price_range + " <br> Restaurant URL: " + rest.restaurant_website)
   )
 };
@@ -92,7 +92,7 @@ for (var i = 0; i < data_collection_2.length; i++) {
   var rest_two = data_collection_2[i];
 
   restmarkers_two.push(
-    L.marker([rest_two.latitude, rest_two.longitude], {icon: redIcon})
+    L.marker([rest_two.latitude, rest_two.longitude], { icon: redIcon })
       .bindPopup("<h2>" + rest_two.name + "</h2> <br> " + rest_two.city + " " + "<br> Price Range: " + rest_two.price_range + " <br> Restaurant URL: " + rest_two.restaurant_website)
   )
 };
@@ -149,37 +149,111 @@ function makeMap(lat, lon) {
   return myMap
 }
 
+var myMap = centermap(60610);
+
+// Select the button
+var button = d3.select("#filter-btn")
+// Select the form
+var form = d3.select("#form");
+
+// Select the button
+var citybutton = d3.select("#city-btn")
+// Select the form
+var cityform = d3.select("#city-form");
+
+
+
+// Create event handlers for clicking the button or pressing the enter key
+button.on("click", runEnter);
+form.on("submit", runEnter);
 // function called runEnter
+citybutton.on("click", runCityEnter);
+cityform.on("submit", runCityEnter);
 
-// function runEnter(){
-//   ... // code to grab form
-//   ... // filter data to get lat lon for restaurant name
-//   makeMap(lat, lon)
-// }
+function runEnter() {
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+  // Select the input element and get the raw HTML node
+  var inputElement = d3.select("#zipcode");
+
+  // Get the value property of the input element
+  var inputValue = inputElement.property("value");
+  //   ... // code to grab form
+  //   ... // filter data to get lat lon for restaurant name
+  //   makeMap(lat, lon)
+  console.log(inputValue);
+  centermap(inputValue)
+}
+
+function runCityEnter() {
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+  // Select the input element and get the raw HTML node
+  var inputElement = d3.select("#city");
+
+  // Get the value property of the input element
+  var inputValue = inputElement.property("value");
+
+  console.log(inputValue);
+
+  centercitymap(inputValue)
+}
+
+
+const data_sets = [].concat(data_collection, data_collection_2,data_collection_3)
+
+
+function centercitymap(city) {
+  var filteredData = data_sets.filter(object => object.city === city);
+    console.log(filteredData)
+  }
+ 
+function centermap(zipcode) {
+
+
+
+  baseurl = `https://maps.googleapis.com/maps/api/geocode/json?key=${google_api_key}&components=postal_code:`
+  // console.log(baseurl)
+
+
+  d3.json(baseurl + zipcode).then(function (geodata) {
+    coordinates = geodata.results[0].geometry.location
+    // console.log(coordinates)
 
 
 
 
-var myMap = makeMap(41.913274, -87.648174)
-var legend = L.control({position: 'bottomright'});
+
+    if (typeof myMap != 'undefined') {
+      myMap.remove()
+    }
+
+    myMap = makeMap(coordinates.lat, coordinates.lng);
+    legend.addTo(myMap);
+    L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+
+  })
+};
+var legend = L.control({ position: 'bottomright' });
 
 legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend');
+  var div = L.DomUtil.create('div', 'info legend');
 
-    
-   
-        div.innerHTML +=
-            '<i style="background:' + "green" + '"></i> ' + "Three Stars" +
-             '<br>' + '<br>' + '<i style="background:' + "red" + '"></i> ' + "Two Stars" +
-             '<br>' + '<br>'+ '<i style="background:' + "blue" + '"></i> ' + "One Star"
-             ;
 
-    return div;
+
+  div.innerHTML +=
+    '<i style="background:' + "green" + '"></i> ' + "Three Stars" +
+    '<br>' + '<br>' + '<i style="background:' + "red" + '"></i> ' + "Two Stars" +
+    '<br>' + '<br>' + '<i style="background:' + "blue" + '"></i> ' + "One Star"
+    ;
+
+  return div;
 };
 
-legend.addTo(myMap);
+
 
 // Pass our map layers into our layer control
 // Add the layer control to the map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+
+;

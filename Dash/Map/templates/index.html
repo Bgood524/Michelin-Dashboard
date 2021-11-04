@@ -31,12 +31,23 @@
               <div class="form-group">
                 <ul class="list-group" id="filters">
                   <li class="filter list-group-item">
-                    <label for="date">Enter a Restaurant</label>
-                    <input class="form-control" id="datetime" type="text" placeholder="Search">
+                    <label for="date">Enter a Zipcode</label>
+                    <input class="form-control" id="zipcode" type="text" placeholder="Search">
                   </li>
                 </ul>
               </div>
               <button id="filter-btn" type="button" class="btn btn-default">Go</button>
+            </form>
+            <form id="city-form">
+              <div class="form-group">
+                <ul class="list-group" id="filters">
+                  <li class="filter list-group-item">
+                    <label for="date">Enter a City</label>
+                    <input class="form-control" id="city" type="text" placeholder="Search">
+                  </li>
+                </ul>
+              </div>
+              <button id="city-btn" type="button" class="btn btn-default">Go</button>
             </form>
           </div>
         </div>
@@ -58,9 +69,9 @@
       var data_collection = {{data_collection|safe}}
       
       var data_collection_2 = {{data_collection_2|safe}}
-      console.log(data_collection_2)
+      // console.log(data_collection_2)
       var data_collection_3 = {{data_collection_3|safe}}
-      console.log(data_collection_3)
+      // console.log(data_collection_3)
     </script>
     <!-- API key -->
     <script src="{{url_for('static', filename='config.js')}}"></script>

@@ -18,6 +18,7 @@ def data_get():
     data_collection = list(mongo.db.oneStars.find({}, {'_id': False}))
     data_collection_2 = list(mongo.db.twoStars.find({}, {'_id': False}))
     data_collection_3 = list(mongo.db.threeStars.find({}, {'_id': False}))
+    # all_data_collection = list(mongo.db)
     return render_template('index.html', data_collection=data_collection, data_collection_2=data_collection_2, data_collection_3=data_collection_3)
 
 # @app.route('/get_data')
