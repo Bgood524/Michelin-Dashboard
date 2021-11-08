@@ -205,7 +205,18 @@ const data_sets = [].concat(data_collection, data_collection_2,data_collection_3
 
 function centercitymap(city) {
   var filteredData = data_sets.filter(object => object.city === city);
-    console.log(filteredData)
+    // console.log(filteredData)
+    var latitude = filteredData[0].latitude
+    var longitude = filteredData[0].longitude
+
+    if (typeof myMap != 'undefined') {
+      myMap.remove()
+    }
+
+    myMap = makeMap(latitude, longitude);
+    legend.addTo(myMap);
+    L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+
   }
  
 function centermap(zipcode) {
