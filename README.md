@@ -14,16 +14,16 @@ Our original [dataset](https://www.kaggle.com/jackywang529/michelin-restaurants)
 
 See below for examples on how the Michelin Map looks:
 
-*Restaurant Map*
+*City Input Example*
 
-![Restaurant Map](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_1.png)
+![Restaurant Map](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_2.JPG)
 
 
-*Restaurant Info to Scrape*
+*Zip Code input with dark mode*
 
-![Restaurant Info to Scrape](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_2.png)
+![Restaurant Info to Scrape](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_3.JPG)
 
-*Additional Visualization Example*
+*Filters and Legend view*
 
-![Visualization](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_3.png)
+![Visualization](https://github.com/Bgood524/Michelin-Dashboard/blob/main/Proposal_Data/Images/Deploy_1.JPG)
 
